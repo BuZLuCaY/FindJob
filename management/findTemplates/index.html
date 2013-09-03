@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block Search %}
+  {% comment %}
+  <div class="jumbotron">
+    <form method="GET">
+      {{ arama_formu.aranacak_kelime.errors }}
+      {{ arama_formu.aranacak_kelime.label }}
+      {{ arama_formu.aranacak_kelime }}
+      <input type="submit" value="Bul">
+    </from>
+  </div>
+  {% if aranacak_kelime %}
+  <h3>Aradığınız "{{aranacak_kelime}}" için bulunan sonuçlar:</h3>
+  {% endif %}
+  {% endcomment %}
+    <div class="jumbotron">
+      <form class="form-inline">
+        <input type="text" class="form-control">
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
+    </div>
+  
+  {% endblock %}
+{% block Body %}
+  <div class="row" >
+    <div class="col-lg-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th width="125">Posted Date {{request.user}}</th>
+            <th width="400">Position</th>
+            <th>Company</th>
+            <th>City</th>
+            <th>Sector</th>
+          </tr>
+        </thead>
+        {% for ad in ads %}
+          <tbody>
+            <tr>
+              <td>{{ ad.date }}</td>
+              <td>{{ ad.position }}</td>
+              <td>{{ ad.company }}</td>
+              <td>{{ ad.address }}</td>
+              <td>{{ ad.sector }}</td>
+            </tr>
+          </tbody>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  {% endblock %}

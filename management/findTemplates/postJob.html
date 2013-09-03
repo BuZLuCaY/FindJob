@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block Search %}
+  <div class="jumbotron">
+    <form class="form-inline">
+      <input type="text" class="form-control">
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
+  </div>
+{% endblock %}
+{% block Body %}
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-10">
+      <form method="POST" class="form-inline">
+        {% csrf_token %}
+        <div class="form-group">
+          {% for field in form %}
+            {% if "id_address" in field.label_tag %}
+              <label for="id_{{field.name}}" class="col-lg-2 control-label">{{field.label}}:</label>
+              <div class="col-lg-10">
+                <p class="textarea{% if field.errors %} field-error {% endif %}">
+                <span>
+                  {{ field }}
+                </span>
+                {% if field.errors %}
+                  <span class="error-message">{{field.errors.0}}</span>
+                {% endif %}
+                </p>
+                {% if field.help_text %}
+                  <p class="helper_text">{{ field.help_text }}</p>
+                {% endif %}
+              </div>
+            {% elif "picture" in field.label_tag or "date" in field.label_tag %}
+              <label for="id_{{field.name}}" class="col-lg-2 control-label">{{field.label}}:</label>
+              <div class="col-lg-10">
+                <p class="{% if field.errors %} field-error{% endif%}">
+                  <span>
+                    {{ field }}
+                  </span>
+                  {% if field.errors %}
+                    <span class="error-message">{{field.errors.0}}</span>
+                  {% endif %}
+                </p>
+              {% if field.help_text %}
+                <p class="helper_text">{{ field.help_text }}</p>
+              {% endif %}
+              </div>
+            {% else %}
+              <label for="id_{{field.name}}" class="col-lg-2 control-label">{{field.label}}:</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="id_{{field.name}}" name="{{field.name}}" maxlength="{{field.field.max_length}}">
+                {% if field.errors %}
+                  <span class="error-message">{{field.errors.0}}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          <div class="col-offset-2 col-lg-10">
+            <input class="btn btn-default" type="submit" value="Post">
+          </div>
+        </div>
+      </form>
+    </div>
+   </div>
+{% endblock %}

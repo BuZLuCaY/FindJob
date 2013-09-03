@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %} Find a Job {% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{{ STATIC_URL }}css/jumbotron.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/images/icons/favicon.ico" type="image/x-icon">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Find Job</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'mainPage' %}">Home</a></li>
+            <li><a href="{% url 'myProfile' %}">My Profile</a></li>
+            <li><a href="{% url 'postJob' %}">Post a Job</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+          </ul>
+          
+          {% if user.is_authenticated %}
+            <form class="navbar-form form-inline pull-right">
+              {% csrf_token %}
+              <label style="color:#80BFFF">Welcome to {{user.get_full_name}}</label>
+              <a href="/accounts/logout/" class="btn btn-primary">Logout</a>
+            </form>
+          {% else %}
+            <form method="POST" class="navbar-form form-inline pull-right" action="{% url 'django.contrib.auth.views.login' %}">
+              {% csrf_token %}
+              <input id="id_username" maxlength="254" name="username" type="text" placeholder="Username">
+              <input id="id_password" name="password" type="password" placeholder="Password">
+              <input type="submit" class="btn" value="Sign in" />
+              {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+              {% else %}
+                <input type="hidden" name="next" value="/accounts/profile/" />
+              {% endif %}
+              <a href="/accounts/register/" class="btn btn-info">Sign up</a>
+            </form>
+            {% if form.errors %}
+              <p style="color:red">Your username and password didn't match. Please try again.</p>
+            {% endif %}
+          {% endif %}
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      {% block Search %}
+      {% endblock %}
+
+      <div class="body-content">
+
+        <!-- Example row of columns -->
+        {% block Body %}
+        {% endblock %}
+        <hr>
+
+        <footer>
+          <p>&copy; BuZLuCaY 2013</p>
+        </footer>
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>

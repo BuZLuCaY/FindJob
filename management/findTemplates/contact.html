@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block Search %}
+  <div class="jumbotron">
+    <form class="form-inline">
+      <input type="text" class="form-control">
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
+  </div>
+{% endblock %}
+{% block Body %}
+	<div class="row">
+	  <div class="profile-area">
+	    <a href="#" class="thumb">
+	      <img src="{{ STATIC_URL }}cv/profile.png" width="160px" height="160px" class="img-thumbnail">
+	    </a>
+	    <h1>Abdurrahman Gayretli</h1>
+	    <h3>abdurrahmangayretli@gmail.com</h3>
+	    <h4>+90 537 919 15 48</h4>
+	    <a href="www.facebook.com/BuZLuCaY" class="thumb"> www.facebook.com/BuZLuCaY </a>
+	  </div>
+	</div>
+{% endblock %}

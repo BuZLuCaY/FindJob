@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block Search %}
+  <div class="jumbotron">
+	<form class="form-inline">
+	  <input type="text" class="form-control">
+	  <button type="submit" class="btn btn-default">Search</button>
+	</form>
+  </div>
+{% endblock %}
+{% block Body %}
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-10">
+			<h1>User Registration</h1>
+			<form action="" method="POST">
+				{% csrf_token %}
+				<table border=1>
+					{{form}}
+				</table>
+				<input type="submit" value="Register">
+			</form>
+		</div>
+	</div>
+{% endblock %}
